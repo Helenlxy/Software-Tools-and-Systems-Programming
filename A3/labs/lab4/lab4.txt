@@ -1,0 +1,122 @@
+
+    
+      CSC 209H: Lab 4: Structs, pointers, and strings
+    
+  
+
+  
+
+
+    
+      Lab 4: Structs, pointers, and strings
+    
+    
+
+
+
+
+
+Due: Electronically, by 11:00 a.m. on Feb 8, 2013
+
+Introduction
+
+The purpose of this lab is to practice with pointers, structs and strings. Pay attention to the notation so that you are conscious of when you are taking the address of a variable, when you are dereferencing a pointer, and how values are getting passed into functions.  Draw pictures!
+
+Before you start, log into MarkUs and create your group so that you can
+submit your files to the correct spot.
+
+Remember, the TAs are there to help you. You should work in pairs and are
+welcome to ask other students for help too.  Try finding a different partner this week. Meet someone new.
+
+Preparation
+
+The C programming concepts you will be using in the lab today are:
+
+	pointers
+	character arrays used as strings
+	structs
+	calling malloc and checking return value
+
+
+
+
+The file structs.c contains 
+code for you to complete. Download a copy of this program and compile and run it.
+
+
+prompt> gcc -Wall -g -o structs structs.c
+prompt> structs
+
+
+Read through the code carefully.  Make note of how pointers and structs are being used. You will complete the functions marked in the starter code. 
+
+
+
+ Task 1: First read through the starter code, compile it and run it.
+Make sure you understand the difference between r1 and r2.
+Now complete the function create_rectangle so that it assigns to the new rectangle's label, upperleft and lowerright members. You'll want to use strncpy to assign to the rectangle's label. Test this function by rerunning
+the starter code.
+
+ Task 2: Complete the two versions of the function to 
+calculate the area of a rectangle. Do not change the starter code.
+Add code to main to call each version on each rectangle (4 calls
+in total.)
+
+ Task 3: Complete the function change_label and
+add code in main to change the label of r1 to "newname rectangle". Add 
+a call in main to change the label of r2 to "newname square".
+Make sure your code doesn't crash when you change the label of r1 to
+"very long name that exceeds the 20 character space". Even if it seems to work, are you confident that your function isn't writing in memory that is
+not part of the name? The name should be truncated to only 20 characters when
+it is printing out.
+
+
+ Task 4: Complete function broken_change_label that
+is almost identical to your change_label code except that instead
+of taking a pointer to the struct rectangle, the function expects
+a struct rectangle itself. Make only the changes needed to access the fields
+correctly (in particular, do not modify the definition of struct rectangle at the top of the file and do not change the function's signature). Call this new function from main; you should observe that it does not change the name of the rectangle. Discuss this with your partner and make sure you understand why this broken function can't work.
+
+
+ Task 5: (optional but very worthwhile) Notice that the space for
+the label of a rectangle is allocated when the struct is created and that
+it is NAMESIZE characters. But at the point of creating the 
+rectangle, we know the actual label that will be used. So a better design 
+is to make the label in struct rectangle type char *. Now the
+function create_rectangle must call malloc to allocate enough space
+for the label. This is in addition to the malloc call to create the space
+for the struct. Make this change to your code. Remember to check the 
+return value from every call to malloc. 
+
+ Task 6: (optional but very worth doing if you did 5) Change
+your change_label function so that if the new label is longer than
+the old label, the function frees the memory used by the old label and allocates
+new memory for the new label. 
+
+
+
+Aside
+We haven't talked much about dynamically allocating memory in class yet, so here is a brief reminder. The code to dynamically allocate memory for the structs is given in the starter code. The library function malloc reserves a chunk of memory on the heap, and the number of bytes it reserves is given as a parameter. malloc  returns a pointer to the beginning of the chunk of memory it reserved.  When you dynamically allocate memory in C, you must be careful to free that memory when you are finished with it.  You should be able to convince yourself that all memory has been correctly freed in this code, and that it is freed at an appropriate time.
+
+ Notice in the create_point function how the return value for
+malloc is checked. If the malloc call was unsuccessful, 
+perror is called, which reports an error message to stderr,
+and then the program exits with a return value of 1. You should do this same
+style of error checking for every call to malloc.
+
+
+You will get the most out of this lab if you think through all of the steps instead of just trying to make the code work.
+
+Finally
+
+Submit the structs.c file to MarkUs. Make sure that your
+partner logs in to accept the group invitation.
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,122 @@
+
+    
+      CSC 209H: Lab 3: Basic C
+    
+  
+
+  
+
+
+    
+      Lab 3: Basic C
+    
+    
+
+
+
+
+
+
+Due: Electronically, by 11 a.m. on Friday Feb 1, 2013
+
+Introduction
+
+In this lab you will get some practice with simple C programs.
+
+Remember, the TAs are there to help you.  You should work in pairs and are welcome to ask other students for help too.
+
+Preparation
+
+The C programming concepts you will be using in the lab today are:
+
+	simple types
+	arrays
+	functions
+	compiling and running a program from the command line
+	using gdb
+
+
+
+1. Writing some simple array functions
+
+The file arrays.c contains some
+starter code for you to complete. You are asked to write four simple array
+functions. Copy the file into your account, compile and run the program:
+
+
+prompt> gcc -Wall -g -o arrays arrays.c
+prompt> ./arrays
+
+
+Read through the provided code paying particular attention to the 
+function print_array. Notice that when we pass an array to 
+a function we call the function using the name of the array as an argument
+but inside the function we declare the array using pointer syntax that we 
+haven't discussed yet in lecture. 
+Within a function, you can access array elements with the 
+same syntax that you saw in Java. 
+You do not need to know anything about 
+pointers to do this lab and the TAs have been instructed not to spend time 
+talking about pointers this week. We have provided all the function headers
+and all the calls. 
+You should not be using pointers even if you
+already know what they are. You'll see them next week in lab 4.
+
+
+Notice that when we pass an array to a function, we not only pass the array but
+we also pass the size. Remember that the array itself does not contain size information after we have
+passed it into the function. 
+
+2. Array overflow and gdb
+
+The file overflow.c contains a
+program that you can play with. You may not have seen the 
+#define macro yet. It is the typical way to create constants in C. For
+this part of the lab you will be changing the values of SIZE and
+OVERFLOW to see what happens when OVERFLOW is bigger than
+SIZE
+
+First read through the program. Describe to your partner or some unsuspecting
+bystander what the program is doing. Notice that we are printing the addresses
+of the variables. The purpose of doing that is to show how the variables are
+laid out in memory. 
+
+	Next, compile and run the program as shown here:
+
+prompt> gcc -Wall -g -o overflow overflow.c
+prompt> ./overflow
+
+
+Don't miss the new -g flag or gdb won't work properly.
+Notice the initial value for i.  Did the program behave as you expected?
+
+
+Now change the value of OVERFLOW to 5. Compile the program an run it
+again. What changed?
+
+The next step is to run the program in gdb. You want to record your
+work, so first enter script part2. This will create a script file 
+in the current working directory (which should be your lab3 directory).
+
+Now type gdb overflow. Set a breakpoint in main by typing break
+main, and then start the program running by typing run. You want
+to watch the values of a few variables, so use display a> to show 
+the value of variable a (for example.) Do this for each
+variable you want to watch. Step through the program one line at a time using
+next. Notice when k changes, and notice the final value of
+i. When the program terminates type quit to leave gdb, and
+then type exitto terminate the script program. Have a look at
+the file you created (called part2) using less. 
+
+The last step in this section is to try to make your program crash. (I had to
+set overflow to something like 5000 to get it to crash with a Segmentation
+fault.)
+
+Finally
+
+Remember to ensure that one member of each pair invites the other to join his
+or her group in MarkUs. Submit arrays.c and part2 to lab3 on
+MarkUs.
+
+
+

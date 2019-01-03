@@ -1,0 +1,28 @@
+#! /bin/sh
+
+# usage: token_match [-n column] filename token
+
+pos=0
+if [ $# -eq 4 ]
+then
+    pos=$2
+    shift 
+    shift
+fi
+filename=$1
+token=$2
+while read line
+do
+    if [ "$line" ]  
+    then
+        set $line
+        if [ $pos -lt $# ]
+        then 
+          shift $pos
+          if [ $1 = $token ] 
+          then
+            echo $line
+          fi
+        fi
+    fi
+done < $filename

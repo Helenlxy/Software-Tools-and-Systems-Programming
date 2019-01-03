@@ -1,0 +1,113 @@
+
+    
+      CSC 209H: Lab 2: More Shell Programming
+    
+  
+
+  
+
+
+    
+      Lab 2: More Shell Programming
+    
+    
+
+
+
+
+
+
+Due: Electronically, by 11 a.m. on Fri. January 25, 2013
+
+
+Introduction
+
+In this lab, you will write two small shell programs. 
+
+Remember, the TAs are there to help you.  You should work in pairs and are welcome to ask other students for help too.
+
+Once again you will submit your work using <a
+href="https://stanley.cdf.toronto.edu/markus/csc209-2013-01/">MarkUs. Please
+remember to invite your partner into your group, and make sure that the partner
+logs on to accept the invitation. We have dropped the requirement that 
+group members must be in the same lab section, so you are free to partner with any student
+taking CSC 209 on this campus.
+
+A new shell command you may find useful today: 
+
+	tr -- copy from stdin to stdout replacing specific characters 
+
+
+Part 1
+
+There is a program called which that takes a program name as an argument and looks through the directories in PATH to find it.  It prints out the absolute path to the first instance of the program name that it finds.  For example, if I run which python in my account, the output is:
+
+
+    /usr/local/bin/python
+
+
+Write a shell program called whicha that prints the absolute path of all occurrences of the program name given as an argument.  For example, in my account, whicha python gives the following output:
+
+    /usr/local/bin/python
+    /usr/bin/python
+
+
+Recall the the elements of the PATH variable are separated by a colon.  The program tr can be used to replace all occurrences of one character with another, reading from standard input.  So tr ":" " " will replace all instances of a colon with a space when reading from standard input. 
+
+Your program should only print the absolute path if the file is executable and of course, your program 
+should not use the real which command.
+
+Submit the file whicha.
+
+Part 2
+
+For this part of the lab, you will write a shell program match_token that reads a file and
+echoes some of the lines to standard output. You are required to implement a simple version of the program
+and implementing a extended version is optional. The required version will support the following synopsis:
+
+match_token filename token
+
+Echo lines from filename that have token as the first word (as delimited by white space.)
+
+
+Here are instructions that we suggest you follow to develop your program.
+
+ First write a program match_token that prints the two commandline arguments to standard out.
+ Change your program so that it uses a loop to read the lines of the specified file and prints them all to standard out. For this step, you are just ignoring the token.
+ Change your program so that it prints only the first word of each line from the file. What is a word you ask? In this case it is just the first group of non-whitespace characters in the line. Normally we would call this 
+a token but because we used the word token to describe the commandline arguments, this could be confusing. 
+ Test your program using a file that has only one word per line and no blank lines like this one.
+ Now test your program using a file with multiple words per line.
+ Once you have that working, test your program using a file with some blank lines
+ Now change your program so that it prints the entire line, but only for lines where the first word matches
+the token from the commandline argument. Test your program thoroughly.
+
+
+You are finished the required part of the lab. Submit the file match_token now, even if you
+plan to do the optional extension.
+
+ Optional Extension 
+
+Completing this extension will give you practice with more shell commands that you might need for assignment 1.
+
+
+ Change your program so that it supports the synopsis:
+
+match_token [-n column] filename token
+
+Echo lines from filename that have token as the word in the specified column. Columns are counted from 0. 
+If unspecified, column is 0. 
+
+
+
+Notice that if match_token is called without the optional arguments, the behaviour is exactly the same as the
+required program above. That is, the column is set to 0, so the token must match the first word in the line. 
+But now, if the user calls  match_token -n 2 animals_blanks pup the program should print lines from
+the file animals_blanks that have the word pup as the third word.
+
+
+If you complete the optional extension, replace your earlier submission of match_token with the 
+extended version so that we can see your work. 
+
+
+

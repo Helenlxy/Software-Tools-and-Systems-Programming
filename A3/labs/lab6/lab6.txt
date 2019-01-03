@@ -1,0 +1,171 @@
+
+    
+      CSC 209H: Lab 6: Fork
+    
+  
+
+  
+
+
+    
+      Lab 6: Fork
+    
+    
+
+
+
+
+
+
+Due: Electronically, by 11 a.m. on Friday March 8, 2013
+
+
+Introduction
+
+The purpose of this assignment is to play with fork, and get a feeling for
+how it works.  It should be a fairly short lab. 
+
+For this lab you are asked to answer some questions. Place the answers to the
+questions in a plain text file called answers.txt. Please make sure
+the answers are clearly labeled.
+
+You need to download a few starter files:
+
+	Makefile
+	simplefork.c
+	forkloop.c
+	parentcreates.c
+	childcreates.c
+	simplepipe.c
+
+
+
+Use the Makefile to build the provided programs.
+
+1. Run the simplefork program
+
+Open simplefork.c in your favourite editor. Read it through to
+figure out what it is doing. Compile and run it a few times. Recall from lecture
+that it is up to the operating system to decide whether the parent or the child
+runs first after the fork call, and it may change from run to run.
+
+Question 1: Which lines of output are printed more than once?
+
+Question 2: Write down all the different possible orders the output could
+occur in. Note that this includes output orders that you may not be able to
+reproduce.
+
+2. Fork in a loop
+
+The program in forkloop.c takes one command line argument which
+is
+the number of iterations of the loop that calls fork. Try it first with 2, 3 andthen 4. 
+Notice that the shell prompt sometimes appears in the middle of the output.
+That happens because the parent process exits before some of the children get a
+chance to print their output.
+
+Question 3: How many processes are created including the original parent when
+forkloop is called with 2, 3, and 4 as arguments?
+
+Question 4: Use an ASCII diagram to show the processes and their
+relationships when you run with 3 iterations. For example, the diagram for
+simplefork with two processes would be (assuming the process id of the parent is 414
+and the process id of the child is 416)
+
+
+	414 -> 416
+
+
+
+In order to make this task easier, change the printf line so that it not
+only prints the process id but also the parent's process id.
+The information provided by the getppid system call may not
+always give you the information you expect. If a process's parent has
+terminated, the the process gets "adopted" by the init process which has a
+process id of 1. So when you see the ppid of a process is 1, that means that its
+parent has terminated.
+
+
+2. Make the parent create all the new processes
+
+Modify the parentcreates.c program so that the new children do
+not create additional children. Only the original parent will create children.
+Both the parent and the child will print the output line. The resulting diagram
+will look something like the following when parentcreates 3 is
+called. Note that the child process ids will not necessarily be in sequence.
+
+
+	414 -> 416
+	414 -> 417
+	414 -> 420
+
+
+3. Make each child create a new process
+
+Modify the childcreates.c program so that the each new child
+creates a new process. A parent does not create any more processes. All
+processes will print the output line. The resulting diagram will look something
+like the following when childcreates 3 is called:
+
+
+	414 -> 416 -> 417 -> 420
+
+
+4. Add wait:
+
+A process can wait for its children to terminate. If a process wants to wait
+until all its children have terminated, it needs to call wait once for each
+child. Add the appropriate wait calls to parentcreates to ensure that the  parent does not terminate before its children. You should
+be adding the calls to your modified parentcreates, (not the 
+original one we gave you.)
+
+ Optional: Try to delay calling wait as long as possible. In
+other words if the process has other work to do like creating more children, it
+should create the children first and then call wait. 
+
+A Simple Pipe To Write from Child to Parent
+
+The program simplepipe.c has a number of missing pieces which
+you will complete in the following steps.
+
+Step 1: The program create one pipe and uses it to write from
+the child to the parent. Close the ends of the pipe that are not needed. 
+Step 2: In the function write_to_parent, add
+statements to write the string "hello" to the pipe. Follow
+the instructions in the starter code. 
+Step 3: In the function read_from_child, add
+the statement marked Step 3 to read 6 characters from the pipe in one read.
+Then print out the string that was read using printf. Compile,
+run and debug your code at this stage. 
+Step 4: Change the statements in write_to_parent 
+to write all 14 characters of s in one write. This
+will include the string's null terminator. 
+Step 5: Often it is the case that one process doesn't know exactly
+how many characters are being written to the pipe from the other process.
+Although we know here that the child is writing 14 characters, we will change
+the parent to be able to handle any number of characters.
+Change read_from_child so that it still
+reads into a buffer of 6 characters, but uses a loop to keep reading 
+until the other end of the pipe is closed. On each iteration of the loop, 
+write back out to stdout the characters that were read and then print
+a "|\n" after each write. Follow the instructions in the 
+starter code. Compile, run and debug your program at this stage. 
+
+
+Finally
+
+Submit the following files to MarkUs under the correct lab:	
+
+	answers.txt
+	childcreates.c
+	parentcreates.c
+	simplepipe.c
+
+
+
+
+
+
+
+
+
